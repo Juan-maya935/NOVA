@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { techStack } from '../constants/novaData';
+import type { TechnicalAsset } from '../constants/novaData';
 import { Layers, Terminal, Activity } from 'lucide-react';
 
 export const Stack: React.FC = () => {
@@ -40,12 +41,12 @@ export const Stack: React.FC = () => {
             <div className="flex items-center space-x-2 text-nova-purple mb-3">
               <Layers className="w-4 h-4 text-nova-purple animate-pulse" />
               <span className="font-mono text-xs uppercase tracking-widest font-semibold">
-                // SEGURIDAD & INFRAESTRUCTURA DE CÓMPUTO
+                // CAPACIDADES OPERATIVAS Y ACTIVOS INDUSTRIALES
               </span>
             </div>
             
             <h2 className="text-3xl sm:text-4xl font-sans font-bold text-white tracking-tight">
-              Ecosistema Tecnológico <span className="text-nova-electric">Integrado</span>
+              Infraestructura y <span className="text-nova-electric">Equipamiento Técnico</span>
             </h2>
           </div>
 
@@ -53,7 +54,7 @@ export const Stack: React.FC = () => {
           <div className="flex items-center space-x-3 bg-nova-indigo-deep/60 border border-nova-purple/40 px-4 py-2 rounded-sm shadow-[0_0_15px_rgba(99,85,217,0.1)]">
             <Activity className="w-4 h-4 text-nova-electric animate-pulse" />
             <span className="font-mono text-xs text-nova-electric tracking-widest font-medium drop-shadow-[0_0_6px_#00f0ff]">
-              [ SISTEMA.STACK_DE_INGENIERÍA ]
+              [ INFRAESTRUCTURA_ACTIVA.LOG ]
             </span>
           </div>
         </div>
@@ -61,51 +62,60 @@ export const Stack: React.FC = () => {
         {/* Informative summary box */}
         <div className="mb-10 p-5 bg-nova-indigo-deep/20 border-l-2 border-nova-purple max-w-3xl rounded-r-sm">
           <p className="text-gray-400 text-sm sm:text-base font-light leading-relaxed">
-            Nuestros procesos de análisis geoespacial, simulación pericial e inteligencia artificial se ejecutan sobre un stack robusto de última generación, asegurando eficiencia operativa y alta disponibilidad en cada despliegue.
+            Nuestros procesos de análisis geoespacial, simulación física y monitoreo automático operan sobre equipos especializados y pipelines de alto rendimiento, asegurando precisión milimétrica y disponibilidad en cada despliegue comercial.
           </p>
         </div>
 
         {/* Staggered Grid of Tech modules */}
         <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {techStack.map((tech, idx) => (
+          {techStack.map((tech: TechnicalAsset, idx) => (
             <motion.div
               key={idx}
               variants={itemVariants}
-              className="p-4 bg-nova-indigo-medium/20 border border-nova-purple/20 rounded-sm hover:border-nova-electric hover:bg-nova-indigo-deep/30 transition-all duration-300 group tech-corner flex flex-col justify-between h-28 relative shadow-lg shadow-black/40 hover:shadow-[0_0_20px_rgba(0,240,255,0.1)]"
+              className="p-5 bg-nova-indigo-medium/20 border border-nova-purple/20 rounded-sm hover:border-nova-electric hover:bg-nova-indigo-deep/30 transition-all duration-300 group tech-corner flex flex-col justify-between h-[160px] relative shadow-lg shadow-black/40 hover:shadow-[0_0_20px_rgba(0,240,255,0.08)]"
             >
               {/* Top Bar inside card */}
               <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[9px] text-gray-500 tracking-wider">
-                  MOD_0{idx + 1} // SYS_LOADED
+                <span className="font-mono text-[8px] text-nova-purple-glow tracking-wider uppercase font-semibold">
+                  {tech.category}
                 </span>
                 
                 {/* Active Indicator LED */}
                 <div className="flex items-center space-x-1.5 bg-nova-dark/60 px-2 py-0.5 border border-nova-gray-border/60 rounded-[2px]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="font-mono text-[7px] text-emerald-400 font-semibold tracking-widest">
-                    READY
+                  <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${
+                    tech.status === 'CALIBRATING' ? 'bg-amber-400' : 'bg-emerald-400'
+                  }`} />
+                  <span className={`font-mono text-[7px] font-semibold tracking-widest ${
+                    tech.status === 'CALIBRATING' ? 'text-amber-400' : 'text-emerald-400'
+                  }`}>
+                    {tech.status}
                   </span>
                 </div>
               </div>
 
-              {/* Tag name */}
-              <div className="text-base font-sans font-bold text-gray-200 group-hover:text-white transition-colors">
-                {tech}
+              {/* Asset Name */}
+              <div className="space-y-1">
+                <div className="text-base font-sans font-bold text-gray-200 group-hover:text-white transition-colors">
+                  {tech.title}
+                </div>
+                <div className="text-[11px] text-gray-400 font-light leading-relaxed line-clamp-2">
+                  {tech.description}
+                </div>
               </div>
 
               {/* Status footer inside card */}
               <div className="flex items-center justify-between border-t border-nova-gray-border/40 pt-2 text-[8px] font-mono text-gray-500">
                 <span className="flex items-center space-x-1">
                   <Terminal className="w-2.5 h-2.5 text-nova-purple" />
-                  <span>PROCESS_OK</span>
+                  <span>MOD_HEALTH: NOMINAL</span>
                 </span>
-                <span className="text-nova-electric/80 font-semibold">100% HEALTH</span>
+                <span className="text-nova-electric/80 font-semibold">{tech.health} OPERATIVO</span>
               </div>
 
               {/* Technical corner lines decoration on hover */}

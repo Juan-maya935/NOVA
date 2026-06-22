@@ -33,9 +33,17 @@ export interface ProjectBlock {
   techTags: string[];
 }
 
+export interface TechnicalAsset {
+  title: string;
+  category: string;
+  description: string;
+  health: string;
+  status: 'NOMINAL' | 'ACTIVE' | 'CALIBRATING';
+}
+
 export const navbarLinks: NavbarLink[] = [
   { label: "Inicio", href: "#inicio" },
-  { label: "Stack", href: "#stack" },
+  { label: "Capacidades", href: "#stack" },
   { label: "Servicios", href: "#servicios" },
   { label: "Proyectos", href: "#proyectos" },
   { label: "Contacto", href: "#contacto" }
@@ -47,19 +55,49 @@ export const heroSection: HeroSection = {
   description: "Desarrollamos soluciones tecnológicas avanzadas mediante analítica de datos, reconstrucción geoespacial y automatización inteligente para optimizar la infraestructura y los procesos industriales de alta complejidad."
 };
 
-export const techStack: string[] = [
-  "Python",
-  "Unity",
-  "Blender",
-  "Docker",
-  "Kafka",
-  "Drones de Alta Precisión",
-  "Visión Artificial",
-  "PostgreSQL",
-  "Dashboards Interactivos",
-  "React & TypeScript",
-  "APIs de Alta Disponibilidad",
-  "Fotogrametría 3D"
+export const techStack: TechnicalAsset[] = [
+  {
+    title: "Sistemas de Captura Aérea (LIDAR)",
+    category: "EQUIPAMIENTO AÉREO",
+    description: "Flota de drones industriales multiespectrales equipados con sensores LiDAR para mapeo geoespacial centimétrico.",
+    health: "100%",
+    status: "ACTIVE"
+  },
+  {
+    title: "Motores de Simulación Física 3D",
+    category: "PROCESAMIENTO DE SIMULACIÓN",
+    description: "Algoritmos avanzados para la recreación pericial de incidentes industriales y dinámicas de colisión en tiempo real.",
+    health: "100%",
+    status: "NOMINAL"
+  },
+  {
+    title: "Redes Neuronales de Visión Óptica",
+    category: "INTELIGENCIA ARTIFICIAL",
+    description: "Modelos convolucionales entrenados para la inspección automatizada en tiempo real de líneas de ensamble.",
+    health: "98.4%",
+    status: "ACTIVE"
+  },
+  {
+    title: "Pipelines de Telemetría (Kafka)",
+    category: "INFRAESTRUCTURA DE DATOS",
+    description: "Ingesta y canalización de eventos en streaming para sensorización y telemetría industrial de alta frecuencia.",
+    health: "100%",
+    status: "NOMINAL"
+  },
+  {
+    title: "Visualizadores de Control Central",
+    category: "DESARROLLO DIGITAL",
+    description: "Interfaces centralizadas interactivas que agrupan y grafican variables termográficas e históricas continuas.",
+    health: "99.8%",
+    status: "NOMINAL"
+  },
+  {
+    title: "Hardware de Procesamiento Gráfico",
+    category: "CÓMPUTO DE ALTO RENDIMIENTO",
+    description: "Nodos de GPU dedicados para la optimización y procesamiento acelerado de nubes de puntos densas.",
+    health: "100%",
+    status: "ACTIVE"
+  }
 ];
 
 export const operacionalesMetrics: Metric[] = [

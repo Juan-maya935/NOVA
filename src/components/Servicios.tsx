@@ -3,11 +3,10 @@ import { motion } from 'framer-motion';
 import { services } from '../constants/novaData';
 import type { ServiceBlock } from '../constants/novaData';
 import { Database, Plane, Box, Cpu, Briefcase, Activity, CheckCircle } from 'lucide-react';
+import { DataSimulation } from './DataSimulation';
+import { DroneSimulation } from './DroneSimulation';
 import { Interactive3DViewer } from './Interactive3DViewer';
-
-import dataImg from '../assets/service_data.png';
-import droneImg from '../assets/service_drone.png';
-import automationImg from '../assets/service_automation.png';
+import { VisionSimulation } from './VisionSimulation';
 
 // Map icon name from constant to Lucide component
 const getIcon = (iconName: string) => {
@@ -118,23 +117,17 @@ export const Servicios: React.FC = () => {
                 </div>
 
                 {/* Main Description */}
-                <p className="text-gray-400 text-sm sm:text-base font-light leading-relaxed mb-6">
+                <p className="text-gray-400 text-sm sm:text-base font-light leading-relaxed mb-6 font-sans">
                   {service.description}
                 </p>
 
-                {/* Interactive / Image element */}
-                {service.id === 'SOL_03' ? (
-                  <div className="mb-6 w-full rounded-sm overflow-hidden">
-                    <Interactive3DViewer />
-                  </div>
-                ) : (
-                  <div className="mb-6 w-full rounded-sm border border-nova-gray-border/40 overflow-hidden bg-nova-dark/65 relative h-[200px]">
-                    {service.id === 'SOL_01' && <img src={dataImg} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-750 opacity-70 group-hover:opacity-100" />}
-                    {service.id === 'SOL_02' && <img src={droneImg} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-750 opacity-70 group-hover:opacity-100" />}
-                    {service.id === 'SOL_04' && <img src={automationImg} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-750 opacity-70 group-hover:opacity-100" />}
-                    <div className="absolute inset-0 bg-gradient-to-t from-nova-dark/80 via-transparent to-transparent" />
-                  </div>
-                )}
+                {/* Interactive Simulation element */}
+                <div className="mb-6 w-full rounded-sm overflow-hidden">
+                  {service.id === 'SOL_01' && <DataSimulation />}
+                  {service.id === 'SOL_02' && <DroneSimulation />}
+                  {service.id === 'SOL_03' && <Interactive3DViewer />}
+                  {service.id === 'SOL_04' && <VisionSimulation />}
+                </div>
               </div>
 
               {/* Key Benefit Banner */}
