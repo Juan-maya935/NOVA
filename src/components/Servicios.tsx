@@ -3,6 +3,11 @@ import { motion } from 'framer-motion';
 import { services } from '../constants/novaData';
 import type { ServiceBlock } from '../constants/novaData';
 import { Database, Plane, Box, Cpu, Briefcase, Activity, CheckCircle } from 'lucide-react';
+import { Interactive3DViewer } from './Interactive3DViewer';
+
+import dataImg from '../assets/service_data.png';
+import droneImg from '../assets/service_drone.png';
+import automationImg from '../assets/service_automation.png';
 
 // Map icon name from constant to Lucide component
 const getIcon = (iconName: string) => {
@@ -79,42 +84,58 @@ export const Servicios: React.FC = () => {
               key={service.id}
               variants={cardVariants}
               whileHover={{ y: -6 }}
-              className="p-8 bg-nova-gray-tech/15 border border-nova-gray-border hover:border-nova-electric/50 rounded-sm tech-corner relative group transition-all duration-500 hover:bg-nova-indigo-deep/30 shadow-xl hover:shadow-[0_15px_40px_rgba(0,240,255,0.08)] overflow-hidden"
+              className="p-8 bg-nova-gray-tech/15 border border-nova-gray-border hover:border-nova-electric/50 rounded-sm tech-corner relative group transition-all duration-500 hover:bg-nova-indigo-deep/30 shadow-xl hover:shadow-[0_15px_40px_rgba(0,240,255,0.08)] overflow-hidden flex flex-col justify-between"
             >
-              {/* Animated hover gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-nova-purple/5 via-transparent to-nova-electric/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-              
-              {/* Card Header Info */}
-              <div className="flex items-center justify-between border-b border-nova-gray-border/50 pb-4 mb-6">
-                <span className="font-mono text-xs text-nova-purple-glow font-semibold tracking-wider">
-                  // {service.id}
-                </span>
+              <div>
+                {/* Animated hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-nova-purple/5 via-transparent to-nova-electric/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                 
-                <span className="font-mono text-[9px] text-gray-500 uppercase tracking-widest flex items-center space-x-1">
-                  <Activity className="w-3 h-3 text-nova-electric" />
-                  <span>MOD_DEPLOYED</span>
-                </span>
-              </div>
-
-              {/* Icon & Title Row */}
-              <div className="flex items-start space-x-5 mb-6">
-                <div className="p-3 bg-nova-dark/90 border border-nova-gray-border group-hover:border-nova-electric/60 transition-colors rounded-sm shadow-md flex items-center justify-center">
-                  {getIcon(service.iconName)}
+                {/* Card Header Info */}
+                <div className="flex items-center justify-between border-b border-nova-gray-border/50 pb-4 mb-6">
+                  <span className="font-mono text-xs text-nova-purple-glow font-semibold tracking-wider">
+                    // {service.id}
+                  </span>
+                  
+                  <span className="font-mono text-[9px] text-gray-500 uppercase tracking-widest flex items-center space-x-1">
+                    <Activity className="w-3 h-3 text-nova-electric" />
+                    <span>MOD_DEPLOYED</span>
+                  </span>
                 </div>
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-sans font-bold text-white group-hover:text-nova-electric transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="font-mono text-[10px] text-nova-purple-glow mt-1 tracking-wider">
-                    {service.subtitle}
-                  </p>
-                </div>
-              </div>
 
-              {/* Main Description */}
-              <p className="text-gray-400 text-sm sm:text-base font-light leading-relaxed mb-6">
-                {service.description}
-              </p>
+                {/* Icon & Title Row */}
+                <div className="flex items-start space-x-5 mb-6">
+                  <div className="p-3 bg-nova-dark/90 border border-nova-gray-border group-hover:border-nova-electric/60 transition-colors rounded-sm shadow-md flex items-center justify-center">
+                    {getIcon(service.iconName)}
+                  </div>
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-sans font-bold text-white group-hover:text-nova-electric transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="font-mono text-[10px] text-nova-purple-glow mt-1 tracking-wider">
+                      {service.subtitle}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Main Description */}
+                <p className="text-gray-400 text-sm sm:text-base font-light leading-relaxed mb-6">
+                  {service.description}
+                </p>
+
+                {/* Interactive / Image element */}
+                {service.id === 'SOL_03' ? (
+                  <div className="mb-6 w-full rounded-sm overflow-hidden">
+                    <Interactive3DViewer />
+                  </div>
+                ) : (
+                  <div className="mb-6 w-full rounded-sm border border-nova-gray-border/40 overflow-hidden bg-nova-dark/65 relative h-[200px]">
+                    {service.id === 'SOL_01' && <img src={dataImg} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-750 opacity-70 group-hover:opacity-100" />}
+                    {service.id === 'SOL_02' && <img src={droneImg} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-750 opacity-70 group-hover:opacity-100" />}
+                    {service.id === 'SOL_04' && <img src={automationImg} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-750 opacity-70 group-hover:opacity-100" />}
+                    <div className="absolute inset-0 bg-gradient-to-t from-nova-dark/80 via-transparent to-transparent" />
+                  </div>
+                )}
+              </div>
 
               {/* Key Benefit Banner */}
               <div className="p-4 bg-nova-dark/60 border border-nova-gray-border/60 rounded-sm flex items-start space-x-3 group-hover:border-nova-purple/40 transition-colors">

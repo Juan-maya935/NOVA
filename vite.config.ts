@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/NOVA/',
+  base: '/NOVA/', // ⚠️ Esta es la propiedad clave que debes agregar
 })

@@ -6,6 +6,7 @@ import { Servicios } from './components/Servicios';
 import { Proyectos } from './components/Proyectos';
 import { Contacto } from './components/Contacto';
 import './App.css';
+import logoImg from './assets/logo.png';
 
 const App: React.FC = () => {
   return (
@@ -48,8 +49,10 @@ const App: React.FC = () => {
       {/* Control center bottom bar footer */}
       <footer className="py-8 border-t border-nova-gray-border/60 bg-nova-dark/95 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between font-mono text-[9px] text-gray-500 tracking-wider">
-          <div className="flex items-center space-x-2">
-            <span className="w-1.5 h-1.5 bg-nova-purple rounded-full" />
+          <div className="flex items-center space-x-3">
+            <div className="w-6 h-6 bg-white/95 rounded-sm overflow-hidden p-0.5 flex items-center justify-center border border-nova-purple/30">
+              <img src={logoImg} alt="NOVA Logo" className="w-full h-full object-contain" />
+            </div>
             <span>NOVA INGENIERÍA & SERVICIOS INTEGRALES © {new Date().getFullYear()}</span>
           </div>
           <div className="mt-4 md:mt-0">

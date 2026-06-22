@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { navbarLinks } from '../constants/novaData';
-import { ShieldCheck, Cpu } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
+import logoImg from '../assets/logo.png';
 
 export const Navbar: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('#inicio');
@@ -44,9 +45,8 @@ export const Navbar: React.FC = () => {
           className="flex items-center space-x-3 group"
           onClick={() => setActiveSection('#inicio')}
         >
-          <div className="relative flex items-center justify-center w-9 h-9 border border-nova-purple/50 bg-nova-indigo-deep/50 rounded-sm tech-corner overflow-hidden group-hover:border-nova-electric transition-colors">
-            <Cpu className="w-5 h-5 text-nova-purple group-hover:text-nova-electric transition-colors animate-pulse-slow" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-nova-purple/10 to-nova-electric/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="relative flex items-center justify-center w-9 h-9 bg-white/95 rounded-sm overflow-hidden border border-nova-purple/40 group-hover:border-nova-electric transition-all shadow-[0_0_10px_rgba(99,85,217,0.1)] p-0.5">
+            <img src={logoImg} alt="NOVA Logo" className="w-full h-full object-contain" />
           </div>
           <div className="flex flex-col sm:flex-row sm:items-baseline sm:space-x-2">
             <span className="font-sans font-bold text-2xl tracking-wider bg-gradient-to-r from-nova-purple-glow via-nova-purple to-nova-electric bg-clip-text text-transparent group-hover:brightness-110 transition-all">
