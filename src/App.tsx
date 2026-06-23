@@ -3,7 +3,6 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Stack } from './components/Stack';
 import { Servicios } from './components/Servicios';
-import { Proyectos } from './components/Proyectos';
 import { Contacto } from './components/Contacto';
 import './App.css';
 import logoImg from './assets/logo.png';
@@ -36,11 +35,6 @@ const App: React.FC = () => {
         <Servicios />
 
         <div className="h-[1px] bg-gradient-to-r from-transparent via-nova-purple/20 to-transparent w-full" />
-
-        {/* Project logs Showcase */}
-        <Proyectos />
-
-        <div className="h-[1px] bg-gradient-to-r from-transparent via-nova-electric/25 to-transparent w-full" />
 
         {/* Contact form system */}
         <Contacto />

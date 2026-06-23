@@ -24,15 +24,6 @@ export interface ServiceBlock {
   iconName: 'database' | 'plane' | 'box' | 'cpu';
 }
 
-export interface ProjectBlock {
-  id: string;
-  title: string;
-  description: string;
-  status: 'COMPLETED' | 'ACTIVE' | 'TESTING';
-  location: string;
-  techTags: string[];
-}
-
 export interface TechnicalAsset {
   title: string;
   category: string;
@@ -45,7 +36,6 @@ export const navbarLinks: NavbarLink[] = [
   { label: "Inicio", href: "#inicio" },
   { label: "Capacidades", href: "#stack" },
   { label: "Servicios", href: "#servicios" },
-  { label: "Proyectos", href: "#proyectos" },
   { label: "Contacto", href: "#contacto" }
 ];
 
@@ -138,40 +128,5 @@ export const services: ServiceBlock[] = [
     description: "Implementación de redes neuronales y algoritmos de visión por computadora para control de calidad automático, clasificación y prevención de incidentes operativos.",
     benefit: "Reducción de error humano e inspección automatizada 24/7.",
     iconName: 'cpu'
-  }
-];
-
-export const projects: ProjectBlock[] = [
-  {
-    id: "SOL_REG-001",
-    title: "Inspección de Infraestructura Energética",
-    description: "Reconstrucción geoespacial 3D y análisis térmico automatizado de subestaciones y tendidos eléctricos de alta tensión para prevención de fallas.",
-    status: "COMPLETED",
-    location: "Valle del Cauca, Col",
-    techTags: ["Drones de Precisión", "Python", "Fotogrametría 3D"]
-  },
-  {
-    id: "SOL_REG-002",
-    title: "Monitoreo Ambiental de Alta Frecuencia",
-    description: "Fusión de telemetría de sensores remotos terrestres y visión por computadora para el control ecológico continuo de variables críticas.",
-    status: "ACTIVE",
-    location: "Cali, Col",
-    techTags: ["Visión Artificial", "Kafka", "Docker"]
-  },
-  {
-    id: "SOL_REG-003",
-    title: "Gemelos Digitales y Recreación Forense",
-    description: "Reconstrucción 3D exacta de accidentes industriales y de tránsito terrestre a escala real con simulación física inmersiva interactiva.",
-    status: "COMPLETED",
-    location: "Bogotá, Col",
-    techTags: ["Unity", "Blender", "Fotogrametría 3D"]
-  },
-  {
-    id: "SOL_REG-004",
-    title: "Telemetría y Control Termográfico",
-    description: "Plataforma central de dashboards interactivos que consolida alarmas termográficas predictivas en hornos industriales de alta temperatura.",
-    status: "ACTIVE",
-    location: "Medellín, Col",
-    techTags: ["React & TypeScript", "PostgreSQL", "Dashboards"]
   }
 ];
