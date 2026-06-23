@@ -3,6 +3,8 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Stack } from './components/Stack';
 import { Servicios } from './components/Servicios';
+import { MissionConfigurator } from './components/MissionConfigurator';
+import { FaqTerminal } from './components/FaqTerminal';
 import { Contacto } from './components/Contacto';
 import './App.css';
 import logoImg from './assets/logo.png';
@@ -33,6 +35,16 @@ const App: React.FC = () => {
 
         {/* Services Showcase */}
         <Servicios />
+
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-nova-purple/20 to-transparent w-full" />
+
+        {/* B2B Mission Configurator */}
+        <MissionConfigurator />
+
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-nova-electric/20 to-transparent w-full" />
+
+        {/* FAQ Command Terminal */}
+        <FaqTerminal />
 
         <div className="h-[1px] bg-gradient-to-r from-transparent via-nova-purple/20 to-transparent w-full" />
 

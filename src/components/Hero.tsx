@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { heroSection, operacionalesMetrics } from '../constants/novaData';
 import { Terminal, ArrowUpRight, Cpu, Radio } from 'lucide-react';
+import { LidarBackground } from './LidarBackground';
+import SoundManager from '../utils/sound';
 
 export const Hero: React.FC = () => {
   // Container variant for staggering children animations
@@ -45,13 +47,18 @@ export const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-nova-dark via-transparent to-nova-dark pointer-events-none z-1" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(15,15,35,0.85)_0%,rgba(5,5,8,0.98)_70%)] pointer-events-none z-1" />
       
+      {/* Lidar Particle Background */}
+      <div className="absolute inset-0 z-2 opacity-70">
+        <LidarBackground />
+      </div>
+      
       {/* Decorative Technical Crosshairs / Cyber HUD Elements */}
-      <div className="absolute top-1/4 left-10 w-16 h-16 border-l border-t border-nova-purple/10 pointer-events-none hidden md:block" />
-      <div className="absolute bottom-1/4 right-10 w-16 h-16 border-r border-b border-nova-purple/10 pointer-events-none hidden md:block" />
+      <div className="absolute top-1/4 left-10 w-16 h-16 border-l border-t border-nova-purple/10 pointer-events-none hidden md:block z-1" />
+      <div className="absolute bottom-1/4 right-10 w-16 h-16 border-r border-b border-nova-purple/10 pointer-events-none hidden md:block z-1" />
       
       {/* Decorative Radar Circle */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-nova-purple/5 opacity-5 pointer-events-none hidden lg:block" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full border border-nova-electric/5 opacity-5 pointer-events-none hidden lg:block" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-nova-purple/5 opacity-5 pointer-events-none hidden lg:block z-1" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full border border-nova-electric/5 opacity-5 pointer-events-none hidden lg:block z-1" />
 
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow flex items-center z-10">
@@ -109,6 +116,8 @@ export const Hero: React.FC = () => {
             >
               <a 
                 href="#contacto" 
+                onMouseEnter={() => SoundManager.playHover()}
+                onClick={() => SoundManager.playClick()}
                 className="group relative px-6 py-3 bg-nova-purple/10 border border-nova-purple text-white font-mono text-sm tracking-wider uppercase rounded-sm hover:bg-nova-purple/20 transition-all duration-300 flex items-center justify-center space-x-2 shadow-[0_0_15px_rgba(99,85,217,0.15)] hover:shadow-[0_0_25px_rgba(99,85,217,0.35)]"
               >
                 {/* Neon-like border corners */}
@@ -122,6 +131,8 @@ export const Hero: React.FC = () => {
 
               <a 
                 href="#servicios" 
+                onMouseEnter={() => SoundManager.playHover()}
+                onClick={() => SoundManager.playClick()}
                 className="px-6 py-3 border border-nova-gray-border hover:border-nova-purple/50 text-gray-400 hover:text-white font-mono text-sm tracking-wider uppercase rounded-sm transition-all duration-300 text-center flex items-center justify-center space-x-2"
               >
                 <span>VER SERVICIOS</span>
@@ -201,6 +212,7 @@ export const Hero: React.FC = () => {
           {operacionalesMetrics.map((metric, idx) => (
             <div 
               key={idx} 
+              onMouseEnter={() => SoundManager.playHover()}
               className="p-6 sm:p-8 flex flex-col justify-center items-start text-left relative group hover:bg-nova-indigo-deep/10 transition-colors"
             >
               {/* Dynamic light element on metrics card hover */}

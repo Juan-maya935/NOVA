@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { navbarLinks } from '../constants/novaData';
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, Volume2, VolumeX } from 'lucide-react';
 import logoImg from '../assets/logo.png';
+import SoundManager from '../utils/sound';
 
 export const Navbar: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('#inicio');
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [systemPing, setSystemPing] = useState<number>(45);
+  const [soundEnabled, setSoundEnabled] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +32,18 @@ export const Navbar: React.FC = () => {
     };
   }, []);
 
+  const toggleSound = () => {
+    if (soundEnabled) {
+      SoundManager.disable();
+      setSoundEnabled(false);
+    } else {
+      SoundManager.enable();
+      setSoundEnabled(true);
+      // Brief delay to allow context state initialization
+      setTimeout(() => SoundManager.playSuccess(), 50);
+    }
+  };
+
   return (
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b ${
@@ -42,8 +56,12 @@ export const Navbar: React.FC = () => {
         {/* Left Side: Brand Logo and Title */}
         <a 
           href="#inicio" 
+          onMouseEnter={() => SoundManager.playHover()}
+          onClick={() => {
+            SoundManager.playClick();
+            setActiveSection('#inicio');
+          }}
           className="flex items-center space-x-3 group"
-          onClick={() => setActiveSection('#inicio')}
         >
           <div className="relative flex items-center justify-center w-9 h-9 bg-white/95 rounded-sm overflow-hidden border border-nova-purple/40 group-hover:border-nova-electric transition-all shadow-[0_0_10px_rgba(99,85,217,0.1)] p-0.5">
             <img src={logoImg} alt="NOVA Logo" className="w-full h-full object-contain" />
@@ -66,7 +84,11 @@ export const Navbar: React.FC = () => {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setActiveSection(link.href)}
+                onMouseEnter={() => SoundManager.playHover()}
+                onClick={() => {
+                  SoundManager.playClick();
+                  setActiveSection(link.href);
+                }}
                 className={`relative px-4 py-1.5 font-mono text-xs tracking-wider uppercase transition-all duration-300 rounded-[2px] ${
                   isActive 
                     ? 'text-white' 
@@ -82,19 +104,36 @@ export const Navbar: React.FC = () => {
           })}
         </nav>
 
-        {/* Right Side: Operational System Status */}
-        <div className="flex items-center space-x-3 bg-nova-gray-tech/40 border border-nova-gray-border/80 px-3 py-1.5 rounded-sm select-none">
-          <div className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </div>
-          <div className="flex flex-col text-[8px] font-mono leading-tight">
-            <div className="text-emerald-400 flex items-center space-x-1 font-semibold">
-              <ShieldCheck className="w-2.5 h-2.5 inline" />
-              <span>SISTEMA OPERATIVO // ONLINE</span>
+        {/* Right Side: Audio and Operational System Status */}
+        <div className="flex items-center space-x-3">
+          {/* Sound Toggle Button */}
+          <button
+            onClick={toggleSound}
+            onMouseEnter={() => SoundManager.playHover()}
+            className={`p-2 border rounded-sm transition-all duration-300 flex items-center justify-center ${
+              soundEnabled 
+                ? 'border-nova-electric/40 bg-nova-electric/5 text-nova-electric shadow-[0_0_10px_rgba(0,240,255,0.15)] animate-pulse' 
+                : 'border-nova-gray-border/60 text-gray-500 hover:text-white hover:border-nova-purple/50'
+            }`}
+            title={soundEnabled ? "Silenciar Audio de Consola" : "Activar Audio de Consola"}
+          >
+            {soundEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+          </button>
+
+          {/* Operational System Status */}
+          <div className="flex items-center space-x-3 bg-nova-gray-tech/40 border border-nova-gray-border/80 px-3 py-1.5 rounded-sm select-none">
+            <div className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </div>
-            <div className="text-gray-500 tracking-wider">
-              PING: <span className="text-nova-electric">{systemPing}ms</span> // SECURE_CON
+            <div className="flex flex-col text-[8px] font-mono leading-tight text-left">
+              <div className="text-emerald-400 flex items-center space-x-1 font-semibold">
+                <ShieldCheck className="w-2.5 h-2.5 inline" />
+                <span>SISTEMA OPERATIVO // ONLINE</span>
+              </div>
+              <div className="text-gray-500 tracking-wider">
+                PING: <span className="text-nova-electric">{systemPing}ms</span> // SECURE_CON
+              </div>
             </div>
           </div>
         </div>
@@ -107,3 +146,4 @@ export const Navbar: React.FC = () => {
     </header>
   );
 };
+export default Navbar;

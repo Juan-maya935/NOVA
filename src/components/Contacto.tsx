@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Terminal, Send, Radio, MessageSquare, MapPin, CheckCircle, ShieldAlert } from 'lucide-react';
+import SoundManager from '../utils/sound';
 
 export const Contacto: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -16,6 +17,19 @@ export const Contacto: React.FC = () => {
     setConsoleLogs(prev => [...prev.slice(-4), newLog]);
   };
 
+  useEffect(() => {
+    const handleConfigTransferred = () => {
+      const configMessage = sessionStorage.getItem('nova_config_message');
+      if (configMessage) {
+        setFormData(prev => ({ ...prev, message: configMessage }));
+        addLog('SYS: Búfer de transmisión cargado con parámetros de misión.');
+      }
+    };
+
+    window.addEventListener('nova_config_transferred', handleConfigTransferred);
+    return () => window.removeEventListener('nova_config_transferred', handleConfigTransferred);
+  }, []);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -29,11 +43,13 @@ export const Contacto: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
+      SoundManager.playClick();
       addLog('WARN: Envío abortado. Todos los campos son requeridos.');
       setSubmitStatus('error');
       return;
     }
 
+    SoundManager.playClick();
     setIsSubmitting(true);
     setSubmitStatus('idle');
     addLog('SYS: Iniciando codificación de paquete de datos...');
@@ -44,13 +60,17 @@ export const Contacto: React.FC = () => {
       setTimeout(() => {
         setIsSubmitting(false);
         setSubmitStatus('success');
+        SoundManager.playSuccess();
         addLog('SYS: Señal transmitida con éxito. Código 200 OK.');
         setFormData({ name: '', email: '', message: '' });
+        // Clean session storage
+        sessionStorage.removeItem('nova_config_message');
       }, 1500);
     }, 1000);
   };
 
   const triggerWhatsApp = () => {
+    SoundManager.playClick();
     addLog('SYS: Redireccionando a protocolo WHATSAPP...');
     // Simulated WhatsApp API link (replace with real business number if needed)
     window.open('https://wa.me/573000000000?text=Hola%20NOVA,%20quiero%20establecer%20contacto%20para%20un%20proyecto.', '_blank');
@@ -116,6 +136,7 @@ export const Contacto: React.FC = () => {
               {/* WhatsApp Card */}
               <div 
                 onClick={triggerWhatsApp}
+                onMouseEnter={() => SoundManager.playHover()}
                 className="p-5 bg-nova-gray-tech/20 border border-nova-gray-border hover:border-emerald-500/50 rounded-sm tech-corner cursor-pointer group transition-all duration-300 hover:bg-emerald-500/5"
               >
                 <div className="flex items-center justify-between mb-4">
@@ -133,7 +154,11 @@ export const Contacto: React.FC = () => {
               {/* Email Card */}
               <a 
                 href="mailto:contacto@novaservicios.co"
-                onClick={() => addLog('SYS: Abriendo cliente de correo predeterminado...')}
+                onClick={() => {
+                  SoundManager.playClick();
+                  addLog('SYS: Abriendo cliente de correo predeterminado...');
+                }}
+                onMouseEnter={() => SoundManager.playHover()}
                 className="p-5 bg-nova-gray-tech/20 border border-nova-gray-border hover:border-nova-electric/50 rounded-sm tech-corner cursor-pointer group transition-all duration-300 hover:bg-nova-electric/5"
               >
                 <div className="flex items-center justify-between mb-4">
@@ -219,6 +244,7 @@ export const Contacto: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
+                onMouseEnter={() => SoundManager.playHover()}
                 className="w-full py-4 bg-nova-purple/20 hover:bg-nova-purple/35 border border-nova-purple text-white font-mono text-xs uppercase tracking-widest rounded-sm transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-nova-purple/15 active:translate-y-[1px] disabled:opacity-50 disabled:cursor-not-allowed group"
               >
                 {isSubmitting ? (
